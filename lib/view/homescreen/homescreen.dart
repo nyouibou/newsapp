@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -35,6 +36,24 @@ class _HomeScreenState extends State<HomeScreen> {
             )
           : Column(
               children: [
+                Text(
+                  "Top News",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                CarouselSlider(
+                    options: CarouselOptions(height: 400.0),
+                    items: List.generate(
+                        providerObj.topheadlines.length,
+                        (index) => Container(
+                              height: 200,
+                              width: 400,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: providerObj
+                                              .topheadlines[index].urlToImage ??
+                                          ""),
+                                  borderRadius: BorderRadius.circular(10)),
+                            ))),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(

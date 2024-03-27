@@ -9,6 +9,7 @@ class HomeScreenController with ChangeNotifier {
 
   // result
   List<Article> articles = [];
+  List<Article> topheadlines = [];
   List<String> CategoryList = [
     "business",
     "entertainment",
@@ -48,6 +49,22 @@ class HomeScreenController with ChangeNotifier {
       final decodedRes = jsonDecode(response.body);
       SampleApiModel resModel = SampleApiModel.fromJson(decodedRes);
       articles = resModel.articles ?? [];
+    }
+    isLoading = false;
+    notifyListeners();
+  }
+
+  topHeadlines() async {
+    isLoading = true;
+    notifyListeners();
+    final url = Uri.parse(
+        "https://newsapi.org/v2/top-headlines?country=in&apiKey=a21defb1070a4d7f87cf552f2ebc2069");
+
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      final decodedRes = jsonDecode(response.body);
+      SampleApiModel resModel = SampleApiModel.fromJson(decodedRes);
+      topheadlines = resModel.articles ?? [];
     }
     isLoading = false;
     notifyListeners();
