@@ -115,13 +115,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Chip(
-                        color: MaterialStatePropertyAll(
-                            HomeScreenController.selectdCategoryIndex == index
-                                ? Colors.grey
-                                : null),
-                        label: Text(HomeScreenController.categoryList[index]
-                            .toUpperCase()),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: Colors.red.withOpacity(.2),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 3),
+                        child: Text(
+                          HomeScreenController.categoryList[index],
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),
