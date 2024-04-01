@@ -5,19 +5,22 @@ import 'package:http/http.dart' as http;
 import 'package:newsapp/model/modelsapi.dart';
 
 class HomeScreenController with ChangeNotifier {
-  bool isLoading = false;
+  bool categoryLoading = false;
+  bool topHeadlinesLoading = false;
 
   // result
-  List<Article> articles = [];
-  List<Article> topheadlines = [];
-  List<String> CategoryList = [
+  List<Article> articlesByCategory = [];
+  List<Article> topheadlinesList = [];
+  static int selectdCategoryIndex = 0;
+
+  static List<String> categoryList = [
     "business",
     "entertainment",
     "general",
     "health",
     "science",
     "sports",
-    "technology",
+    "technology"
   ];
 
   // news fetch
@@ -31,15 +34,17 @@ class HomeScreenController with ChangeNotifier {
   //   final response = await http.get(url);
   //   if (response.statusCode == 200) {
   //     final decodedRes = jsonDecode(response.body);
-  //     SampleApiModel resModel = SampleApiModel.fromJson(decodedRes);
+  //     NewsResModel resModel = NewsResModel.fromJson(decodedRes);
   //     articles = resModel.articles ?? [];
   //   }
   //   isLoading = false;
   //   notifyListeners();
   // }
 
-  fetchNewsCategory({String Category = "business", int index = 0}) async {
-    isLoading = true;
+  fetchNewsbyCategory({String Category = "business", int index = 0}) async {
+    selectdCategoryIndex = index;
+    notifyListeners();
+    categoryLoading = true;
     notifyListeners();
     final url = Uri.parse(
         "https://newsapi.org/v2/top-headlines?country=in&category=$Category&apiKey=a21defb1070a4d7f87cf552f2ebc2069");
@@ -48,14 +53,14 @@ class HomeScreenController with ChangeNotifier {
     if (response.statusCode == 200) {
       final decodedRes = jsonDecode(response.body);
       SampleApiModel resModel = SampleApiModel.fromJson(decodedRes);
-      articles = resModel.articles ?? [];
+      articlesByCategory = resModel.articles ?? [];
     }
-    isLoading = false;
+    categoryLoading = false;
     notifyListeners();
   }
 
-  topHeadlines() async {
-    isLoading = true;
+  getTopHeadlines() async {
+    topHeadlinesLoading = true;
     notifyListeners();
     final url = Uri.parse(
         "https://newsapi.org/v2/top-headlines?country=in&apiKey=a21defb1070a4d7f87cf552f2ebc2069");
@@ -64,9 +69,9 @@ class HomeScreenController with ChangeNotifier {
     if (response.statusCode == 200) {
       final decodedRes = jsonDecode(response.body);
       SampleApiModel resModel = SampleApiModel.fromJson(decodedRes);
-      topheadlines = resModel.articles ?? [];
+      topheadlinesList = resModel.articles ?? [];
     }
-    isLoading = false;
+    topHeadlinesLoading = false;
     notifyListeners();
   }
 }
