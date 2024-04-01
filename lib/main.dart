@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:newsapp/controller/homesceencontroller.dart';
-import 'package:newsapp/controller/searchscreencontroller.dart';
 import 'package:newsapp/view/homescreen/homescreen.dart';
 import 'package:provider/provider.dart';
 
@@ -20,9 +19,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => HomeScreenController(),
         ),
-        ChangeNotifierProvider(
-          create: (context) => SearchScreenController(),
-        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

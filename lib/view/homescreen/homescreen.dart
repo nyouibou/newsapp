@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:newsapp/controller/homesceencontroller.dart';
+import 'package:newsapp/controller/searchscreencontroller.dart';
 import 'package:newsapp/view/globalwidget/customnewspage.dart';
 import 'package:newsapp/view/searchscreen/search_screen.dart';
 import 'package:provider/provider.dart';
@@ -46,8 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SearchScreen(),
-                        ));
+                            builder: (context) => ChangeNotifierProvider(
+                                  create: (context) => SearchScreenController(),
+                                  child: SearchScreen(),
+                                )));
                   },
                   icon: Icon(
                     Icons.search_sharp,

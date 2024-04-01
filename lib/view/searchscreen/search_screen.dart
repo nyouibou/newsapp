@@ -16,24 +16,35 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController searchcontroller = TextEditingController();
   @override
+  void initState() {
+    // Provider.of<SearchScreenController>(context, listen: false).clearData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final provObject = Provider.of<SearchScreenController>(context);
     return Scaffold(
       appBar: AppBar(),
       body: Column(
         children: [
-          TextFormField(
-            decoration: InputDecoration(
-                suffixIcon: InkWell(
-                    onTap: () {
-                      if (searchcontroller.text.isNotEmpty) {
-                        Provider.of<SearchScreenController>(context,
-                                listen: false)
-                            .searchNews(query: searchcontroller.text);
-                      }
-                    },
-                    child: Icon(Icons.search))),
-            controller: searchcontroller,
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: TextFormField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  suffixIcon: InkWell(
+                      onTap: () {
+                        if (searchcontroller.text.isNotEmpty) {
+                          Provider.of<SearchScreenController>(context,
+                                  listen: false)
+                              .searchNews(query: searchcontroller.text);
+                        }
+                      },
+                      child: Icon(Icons.search))),
+              controller: searchcontroller,
+            ),
           ),
           Expanded(
             child: ListView.separated(
